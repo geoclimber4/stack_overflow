@@ -5,8 +5,13 @@
 <p><%= @question.text %></p>
 
   <% if @answers %>
-        <%= erb :'answers/index', locals: { answers: @answers} %>
+    <ul>
+      <% @answers.each do |answer| %>
+        <%= erb :'answers/show', locals: { answer: answer} %>
+    <% end %>
+    </ul>
   <% end %>
+
 
 <% if current_user %>
   <% if @question.author_id == current_user.id %>
