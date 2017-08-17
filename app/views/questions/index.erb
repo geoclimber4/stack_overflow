@@ -1,0 +1,11 @@
+<h1>Questions Home Page </h1>
+<ul>
+<% @questions.each do |question| %>
+  <li> <a href="/questions/<%=question.id%>"> <%=question.title %> </a> <br>
+    <%=question.author.user_name%>
+  </li>
+<% end %>
+</ul>
+<form action="/questions/new" method="get">
+  <input type="submit" value="New Form">
+</form>

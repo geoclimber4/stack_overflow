@@ -1,0 +1,25 @@
+
+<h1>This is a show page for a single question</h1>
+<h3><%= @question.title %></h3>
+<h6>Author:  <%= @question.author.user_name %></h6>
+<p><%= @question.text %></p>
+
+  <% if @answers %>
+  <ul>
+    <% @answers.each do |answer| %>
+      <li><%= answer.text %><br>
+        <p>author: <%= answer.author.user_name %></p>
+      </li>
+  </ul>
+  <% end %>
+<% end %>
+
+<form action="/questions/<%=@question.id%>/edit" method="GET">
+  <input type="submit" value="Update">
+</form>
+
+<!-- If user auth... -->
+<form action="/questions/<%=@question.id%>" method="POST">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete">
+</form>
