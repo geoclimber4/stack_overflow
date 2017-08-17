@@ -6,6 +6,8 @@
   </li>
 <% end %>
 </ul>
+<% if logged_in? %>
 <form action="/questions/new" method="get">
   <input type="submit" value="New Form">
 </form>
+<% end %>
