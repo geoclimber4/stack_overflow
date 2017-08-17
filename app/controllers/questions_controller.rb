@@ -8,8 +8,8 @@ get '/questions/new' do
   erb :'questions/new'
 end
 
-get '/questions/:id' do
-  @question = Question.find(params[:id])
+get '/questions/:question_id' do
+  @question = Question.find(params[:question_id])
   @answers = @question.answers
   erb :"questions/show"
 end
@@ -27,13 +27,13 @@ post '/questions' do
   end
 end
 
-get  '/questions/:id/edit' do
-  @question = Question.find(params[:id])
+get  '/questions/:question_id/edit' do
+  @question = Question.find(params[:question_id])
   erb :'questions/edit'
 end
 
-put '/questions/:id' do
-  @question = Question.find(params[:id])
+put '/questions/:question_id' do
+  @question = Question.find(params[:question_id])
   p params
   p params[:question]
   @question.assign_attributes(params[:question])
@@ -45,8 +45,8 @@ put '/questions/:id' do
   end
 end
 
-delete '/questions/:id' do
-  @question = Question.find(params[:id])
+delete '/questions/:question_id' do
+  @question = Question.find(params[:question_id])
   @question.destroy
   # eventually delete all supporting answers, comments, votes
   redirect '/questions'
