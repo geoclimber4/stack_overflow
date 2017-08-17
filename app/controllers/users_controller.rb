@@ -5,6 +5,7 @@ end
 post '/users' do
   @user = User.create(params[:user])
   if @user.save
+    session[:id] = @user.id
     redirect '/'
   else
     @errors = @user.errors.full_message
