@@ -7,10 +7,9 @@ end
 
 post '/questions/:question_id/answers' do
 
-  p params
-  p params[:text]
   @question = Question.find(params[:question_id])
   @answer = @question.answers.new(text: params[:text])
+  # update to current user after auth added!
   @answer.author_id = 1
 
   if @answer.save
@@ -18,5 +17,15 @@ post '/questions/:question_id/answers' do
   else
     erb :'answers/new'
   end
+end
+
+delete '/questions/:question_id/answers/:answer_id' do
+
+  @question = Question.find(params[:question_id])
+  @answer = @question.answers.find(params[:answer_id])
+
+  @answer.destroy
+
+  redirect '/questions/#{@question.id}/answers'
 
 end
