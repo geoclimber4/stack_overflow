@@ -4,7 +4,7 @@ get '/questions' do
 end
 
 get '/questions/new' do
-
+  authenticate!
   erb :'questions/new'
 end
 
@@ -15,10 +15,10 @@ get '/questions/:id' do
 end
 
 post '/questions' do
-
+  authenticate!
   @question = Question.new(params[:question])
   # update current user method updon user merge
-  @question.author_id = 2
+  @question.author_id = current_user.id
   if @question.save
     redirect '/questions'
   else
@@ -29,27 +29,35 @@ end
 
 get  '/questions/:id/edit' do
   @question = Question.find(params[:id])
-  erb :'questions/edit'
+  if @question.author_id == current_user.id
+    erb :'questions/edit'
+  else
+    redirect "/questions/#{@question.id}"
+  end
 end
 
 put '/questions/:id' do
   @question = Question.find(params[:id])
-  p params
-  p params[:question]
-  @question.assign_attributes(params[:question])
-  if @question.save
-    redirect '/questions'
-  else
-    @errors = @question.errors.full_messages
-    erb ':questions/edit'
+  if @question.author_id == current_user.id
+    @question.assign_attributes(params[:question])
+    if @question.save
+      redirect '/questions'
+    else
+      @errors = @question.errors.full_messages
+      erb ':questions/edit'
+    end
   end
 end
 
 delete '/questions/:id' do
   @question = Question.find(params[:id])
-  @question.destroy
+  if @question.author_id == current_user.id
+    @question.destroy
   # eventually delete all supporting answers, comments, votes
-  redirect '/questions'
+    redirect '/questions'
+  else
+    redirect "/questions/#{@question.id}"
+  end
 end
 
 
