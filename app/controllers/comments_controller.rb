@@ -18,18 +18,18 @@ post '/questions/:question_id/comments' do
   # redirect "/questions/#{@question.id}"
 end
 
-get '/questions/:question_id/answers/:answer_id/comments/new' do
-  @question = Question.find(params[:question_id])
+get '/answers/:answer_id/comments/new' do
+  # @question = Question.find(params[:question_id])
   @answer = Answer.find(params[:answer_id])
   erb :"comments/new_answer"
 end
 
-post '/questions/:question_id/answers/:answer_id/comments' do
+post '/answers/:answer_id/comments' do
   # @question = Question.find(params[:question_id])
   @answer = Answer.find(params[:answer_id])
-  @comment = @answer.comments.new(author: current_user, text: params[:text])
+  @comment = @answer.comments.new(author_id: current_user.id, text: params[:text])
   if @comment.save
-    redirect "/questions/#{params[:question_id]}"
+    redirect "/questions/#{@answer.question.id}"
   else
     @errors = @comment.errors.full_messages
     erb :"comments/new_answer"
