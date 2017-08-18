@@ -1,0 +1,6 @@
+<h1>New Comments</h1>
+
+<form action='/questions/<%= @question.id %>/comments ' method='POST'>
+  <input type='text' name='text' placeholder='Type comment'>
+  <input type='submit' value='Add Comment'>
+</form>

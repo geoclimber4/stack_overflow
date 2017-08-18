@@ -1,0 +1,37 @@
+# will be a partial
+# to get to a form for comments on question
+get '/questions/:question_id/comments/new' do
+  @question = Question.find(params[:question_id])
+  erb :"comments/new_question"
+end
+
+post '/questions/:question_id/comments' do
+  @question = Question.find(params[:question_id])
+  @comment = @question.comments.new(author_id: current_user.id, text: params[:text])
+  if @comment.save
+    redirect "/questions/#{params[:question_id]}"
+  else
+    @errors = @comment.errors.full_messages
+    erb :"comments/new_question"
+  end
+  # @comment = Comment.create(author_id: current_user.id, text: params[:text], commentable_id: @question.id, commentable_type: :Question)
+  # redirect "/questions/#{@question.id}"
+end
+
+get '/questions/:question_id/answers/:answer_id/comments/new' do
+  @question = Question.find(params[:question_id])
+  @answer = Answer.find(params[:answer_id])
+  erb :"comments/new_answer"
+end
+
+post '/questions/:question_id/answers/:answer_id/comments' do
+  # @question = Question.find(params[:question_id])
+  @answer = Answer.find(params[:answer_id])
+  @comment = @answer.comments.new(author: current_user, text: params[:text])
+  if @comment.save
+    redirect "/questions/#{params[:question_id]}"
+  else
+    @errors = @comment.errors.full_messages
+    erb :"comments/new_answer"
+  end
+end
