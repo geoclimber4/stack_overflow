@@ -1,17 +1,18 @@
-<h1>Comments</h1>
-<p>its a partial..</p>
+<div class='answer-comments'>
+  <h1>Comments</h1>
 
+  <ul>
+    <% answer.comments.each do |comment| %>
 
-<ul>
-  <% answer.comments.each do |comment| %>
+    <li> <%= comment.text %>
+      <br>
+      <hr>
+      <%= comment.author.user_name %> </li>
+      <form action='/answers/<%= answer.id %>/comments/<%= comment.id %>/delete' method='POST'>
+        <input type='hidden' name='_method' value='DELETE'>
+        <input type='submit' value='Delete Comment'>
+      </form>
 
-  <li> <%= comment.text %>
-    <br>
-    <%= comment.author.user_name %> </li>
-    <form action='/answers/<%= answer.id %>/comments/<%= comment.id %>/delete' method='POST'>
-      <input type='hidden' name='_method' value='DELETE'>
-      <input type='submit' value='Delete Comment'>
-    </form>
-
-    <% end %>
-  </ul>
+      <% end %>
+    </ul>
+  </div>

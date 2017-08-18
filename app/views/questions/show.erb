@@ -1,9 +1,11 @@
 
-<h1>This is a show page for a single question</h1>
-<h3><%= @question.title %></h3>
-<h6>Author:  <%= @question.author.user_name %></h6>
-<p><%= @question.text %></p>
-
+<!-- <h1>This is a show page for a single question</h1>
+ -->
+ <div class='question-info'>
+  <h3><%= @question.title %></h3>
+  <h6>Author:  <%= @question.author.user_name %></h6>
+  <p><%= @question.text %></p>
+</div>
 
 <%= erb :"comments/_show_question_comments" %>
 
@@ -11,16 +13,12 @@
 <div class="all-answers">
   <% if @answers %>
   <ul>
-
     <% @answers.each do |answer| %>
-
     <%= erb :'answers/show', locals: { answer: answer} %>
-
     <form action='/answers/<%= answer.id %>/comments/new'>
       <input type='submit' value='Add Comment'>
     </form>
     <br>
-
     <% end %>
   </ul>
   <% end %>
@@ -38,16 +36,15 @@
 </div>
 
 <% if current_user %>
-<% if @question.author_id == current_user.id %>
-<form action="/questions/<%=@question.id%>/edit" method="GET">
-  <input type="submit" value="Update">
-</form>
+  <% if @question.author_id == current_user.id %>
+  <form action="/questions/<%=@question.id%>/edit" method="GET">
+    <input type="submit" value="Update">
+  </form>
 
 
-<form action="/questions/<%=@question.id%>" method="POST">
-  <input type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete">
-</form>
-<% end %>
-
+  <form action="/questions/<%=@question.id%>" method="POST">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete">
+  </form>
+  <% end %>
 <% end %>

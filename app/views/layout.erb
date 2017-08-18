@@ -18,12 +18,12 @@ application.css is where you put your styles
 <title></title>
 </head>
 <body>
-  <nav>
+  <nav class="topnav">
     <% unless request.path_info == '/questions' %>
     <a href="/questions">Home</a>
     <% end %>
     <% if logged_in?  %>
-    <a href="users/<%= current_user.id %>">Hello, <%= current_user.user_name %></a>
+    <a href="/users/<%= current_user.id %>">Hello, <%= current_user.user_name %></a>
     <form action='/sessions/delete' method='POST' >
       <input type='hidden' name='_method' value='DELETE'>
       <input type='submit' value='Logout'>
