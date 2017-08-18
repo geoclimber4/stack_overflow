@@ -27,6 +27,7 @@ post '/questions/:question_id/answers' do
   else
     if request.xhr?
       status 422
+      content_type :json
       # p @answer.errors.full_messages
       # @answer.errors.full_messages.to_json
       # Hunter pleaz explain
