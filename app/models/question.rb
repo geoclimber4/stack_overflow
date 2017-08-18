@@ -1,5 +1,7 @@
 class Question < ActiveRecord::Base
 
+  validates :title, :text, :author_id, presence: true
+
   belongs_to :author, class_name: "User"
   has_many :answers
   has_many :votes, as: :votable
