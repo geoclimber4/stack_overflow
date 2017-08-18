@@ -6,6 +6,7 @@
     <% answer.comments.each do |comment| %>
       <li>Comment: <%= comment.text %>
         <br>
+        <hr>
         <%= comment.author.user_name %> </li>
         <%if current_user.try(:id) == comment.author_id  %>
         <form action='/answers/<%= answer.id %>/comments/<%= comment.id %>/delete' method='POST'>
