@@ -1,9 +1,13 @@
 <li><%= answer.text %><br>
   <p>author: <%= answer.author.user_name %></p>
 </li>
-
 <form action="/questions/<%=answer.question.id%>/answers/<%=answer.id%>" method="POST">
-  <input name="_method" type="hidden" value="delete"/>
+  <input name="_method" type="hidden" value="PUT"/>
+  <input type="submit" value="Best Answer"/>
+</form>
+
+<form action="/questions/<%=answer.question.id%>" method="POST">
+  <input name="_method" type="hidden" value="DELETE"/>
   <input type="submit" value="Delete Answer"/>
 </form>
 
