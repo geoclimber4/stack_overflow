@@ -22,10 +22,15 @@ post '/questions/:question_id/answers' do
     else
       redirect "/questions/#{@question.id}"
     end
+
+    # if not saved!!!
   else
     if request.xhr?
       status 422
-      { errors: @answer.errors.full_messages }.to_json
+      # p @answer.errors.full_messages
+      # @answer.errors.full_messages.to_json
+      # Hunter pleaz explain
+      {errors: @answer.errors.full_messages}.to_json
     else
       @errors = @answers.errors.full_messages
       erb :'answers/new'

@@ -17,8 +17,13 @@ var createAnswer = function(){
       data: data
     })
     request.done(function(response) {
-      console.log(response);
       $(".all-answers ul").append(response);
-    })
-  })
+    });
+    request.fail(function(failResponse){
+      console.log(failResponse)
+      console.log(JSON.parse(failResponse.responseText))
+// errors partial should iterate through the parsed JSON thingamabobber
+// refactor to add to errors partial
+    });
+  });
 };
