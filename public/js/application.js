@@ -5,7 +5,7 @@ $(document).ready(function() {
 var createAnswer = function(){
   $("#add-answer-form").on("submit", function(event){
     event.preventDefault();
-    console.log("yo Ida, this is the right thing....")
+    // console.log("yo Ida, this is the right thing....")
     var formTarget = $(this);
     var url = formTarget.attr('action');
     var method = formTarget.attr('method');
@@ -17,6 +17,7 @@ var createAnswer = function(){
       data: data
     })
     request.done(function(response) {
+      console.log(response);
       $(".all-answers ul").append(response);
     })
   })
