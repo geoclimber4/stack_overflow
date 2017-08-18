@@ -21,7 +21,9 @@ var createAnswer = function(){
     });
     request.fail(function(failResponse){
       console.log(failResponse)
-      console.log(JSON.parse(failResponse.responseText))
+      var karlStuff = JSON.parse(failResponse.responseText)
+      console.log(karlStuff)
+      alert(karlStuff.errors)
 // errors partial should iterate through the parsed JSON thingamabobber
 // refactor to add to errors partial
     });
