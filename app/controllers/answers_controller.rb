@@ -43,9 +43,8 @@ delete '/questions/:question_id/answers/:answer_id' do
 
   @question = Question.find(params[:question_id])
   @answer = @question.answers.find(params[:answer_id])
-
   @answer.destroy
 
-  redirect '/questions/#{@question.id}/answers'
+  redirect "/questions/#{@question.id}"
 
 end
