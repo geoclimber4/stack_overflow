@@ -33,7 +33,9 @@ application.css is where you put your styles
     <a href="/users/new">Register</a>
     <% end %>
   </nav>
-
+  <div class='error-container'>
+    <%= erb :'_errors' %>
+  </div>
   <%= yield %>
 </body>
 </html>
