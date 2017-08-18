@@ -1,8 +1,12 @@
 <li><%= answer.text %><br>
   <p>author: <%= answer.author.user_name %></p>
+  <% if answer.question.best_answer_id == answer.id %>
+    <p>This is the best answer</p>
+    <% end %>
 </li>
-<form action="/questions/<%=answer.question.id%>/answers/<%=answer.id%>" method="POST">
+<form action="/questions/<%=answer.question.id%>" method="POST">
   <input name="_method" type="hidden" value="PUT"/>
+  <input name="answer_id" type="hidden" value=<%=answer.id%>>
   <input type="submit" value="Best Answer"/>
 </form>
 
