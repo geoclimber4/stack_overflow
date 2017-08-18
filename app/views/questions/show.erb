@@ -4,6 +4,7 @@
 <h6>Author:  <%= @question.author.user_name %></h6>
 <p><%= @question.text %></p>
 
+<div class="all-answers">
   <% if @answers %>
     <ul>
       <% @answers.each do |answer| %>
@@ -11,6 +12,8 @@
     <% end %>
     </ul>
   <% end %>
+</div>
+
 <h5><%= erb :'answers/new'%></h5>
 
 <% if current_user %>

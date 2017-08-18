@@ -17,9 +17,19 @@ post '/questions/:question_id/answers' do
   @answer.author_id = current_user.id
 
   if @answer.save
-    redirect "/questions/#{@question.id}"
+    if request.xhr?
+      erb :"answers/show", locals: { answer: @answer}, layout: false
+    else
+      redirect "/questions/#{@question.id}"
+    end
   else
-    erb :'answers/new'
+    if request.xhr?
+      status 422
+      { errors: @answer.errors.full_messages }.to_json
+    else
+      @errors = @answers.errors.full_messages
+      erb :'answers/new'
+    end
   end
 end
 
