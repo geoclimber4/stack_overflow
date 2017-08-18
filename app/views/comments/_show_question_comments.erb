@@ -1,19 +1,22 @@
-<h1>Comments</h1>
-<p>its a question partial..</p>
+<div class='question-comments'>
+  <h1>Comments</h1>
 
-<form action='/questions/<%= @question.id %>/comments/new'>
-  <input type='submit' value='Add Comment'>
-</form>
-<ul>
-  <% @question.comments.each do |comment| %>
 
-  <li> <%= comment.text %>
-    <br>
-    <%= comment.author.user_name %> </li>
-    <form action='/questions/<%= @question.id %>/comments/<%= comment.id %>/delete' method='POST'>
-      <input type='hidden' name='_method' value='DELETE'>
-      <input type='submit' value='Delete Comment'>
-    </form>
+  <form action='/questions/<%= @question.id %>/comments/new'>
+    <input type='submit' value='Add Comment'>
+  </form>
+  <ul>
+    <% @question.comments.each do |comment| %>
 
-    <% end %>
-  </ul>
+    <li> <%= comment.text %>
+      <br>
+      <hr>
+      <%= comment.author.user_name %> </li>
+      <form action='/questions/<%= @question.id %>/comments/<%= comment.id %>/delete' method='POST'>
+        <input type='hidden' name='_method' value='DELETE'>
+        <input type='submit' value='Delete Comment'>
+      </form>
+
+      <% end %>
+    </ul>
+  </div>
