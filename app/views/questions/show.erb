@@ -4,21 +4,33 @@
 <h6>Author:  <%= @question.author.user_name %></h6>
 <p><%= @question.text %></p>
 
+
+<%= erb :"comments/_show_question_comments" %>
+
+
 <div class="all-answers">
   <% if @answers %>
-    <ul>
-      <% @answers.each do |answer| %>
-        <%= erb :'answers/show', locals: { answer: answer} %>
+  <ul>
+
+    <% @answers.each do |answer| %>
+
+    <%= erb :'answers/show', locals: { answer: answer} %>
+
+    <form action='/answers/<%= answer.id %>/comments/new'>
+      <input type='submit' value='Add Comment'>
+    </form>
+    <br>
+
     <% end %>
-    </ul>
+  </ul>
   <% end %>
 </div>
 
 <div id="submit_answer">
   <%if @errors%>
-    <%@errors.each do |error|%>
-      <p><%=error%></p>
-    <%end%>
+  <%@errors.each do |error|%>
+  <p><%=error%></p>
+  <%end%>
   <%end%>
   <h5>
     <%= erb :'answers/new'%>
@@ -26,16 +38,16 @@
 </div>
 
 <% if current_user %>
-  <% if @question.author_id == current_user.id %>
-    <form action="/questions/<%=@question.id%>/edit" method="GET">
-      <input type="submit" value="Update">
-    </form>
+<% if @question.author_id == current_user.id %>
+<form action="/questions/<%=@question.id%>/edit" method="GET">
+  <input type="submit" value="Update">
+</form>
 
 
-    <form action="/questions/<%=@question.id%>" method="POST">
-      <input type="hidden" name="_method" value="delete">
-      <input type="submit" value="Delete">
-    </form>
-  <% end %>
+<form action="/questions/<%=@question.id%>" method="POST">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete">
+</form>
+<% end %>
 
 <% end %>

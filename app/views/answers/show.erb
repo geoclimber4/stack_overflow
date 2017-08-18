@@ -3,3 +3,5 @@
 <li><%= answer.text %><br>
   <p>author: <%= answer.author.user_name %></p>
 </li>
+
+<li><%= erb :"comments/_show_answer_comments", locals: {answer: answer } %> </li>
