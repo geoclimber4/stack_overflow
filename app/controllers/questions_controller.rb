@@ -5,7 +5,11 @@ end
 
 get '/questions/new' do
   authenticate!
-  erb :'questions/new'
+  if request.xhr?
+    erb :'questions/new', layout: false
+  else
+    erb :'questions/new'
+  end
 end
 
 get '/questions/:question_id' do
@@ -19,11 +23,18 @@ post '/questions' do
   @question = Question.new(params[:question])
   # update current user method updon user merge
   @question.author_id = current_user.id
-  if @question.save
-    redirect '/questions'
+  if request.xhr?
+    "henry"
+    if @question.save
+      erb :"questions/_new_idk", layout: false, locals: {question: @question}
+    end
   else
-    @errors = @question.errors.full_messages
-    erb :"questions/new"
+    if @question.save
+      redirect '/questions'
+    else
+      @errors = @question.errors.full_messages
+      erb :"questions/new"
+    end
   end
 end
 
