@@ -7,14 +7,14 @@ end
 
 get '/questions/:question_id/answers' do
 
-
 end
+
 post '/questions/:question_id/answers' do
 
   @question = Question.find(params[:question_id])
   @answer = @question.answers.new(text: params[:text])
   # update to current user after auth added!
-  @answer.author_id = 1
+  @answer.author_id = current_user.id
 
   if @answer.save
     redirect "/questions/#{@question.id}"
