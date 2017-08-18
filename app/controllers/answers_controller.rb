@@ -5,6 +5,10 @@ get '/questions/:question_id/answers/new' do
   erb :'answers/new'
 end
 
+get '/questions/:question_id/answers' do
+
+
+end
 post '/questions/:question_id/answers' do
 
   @question = Question.find(params[:question_id])
