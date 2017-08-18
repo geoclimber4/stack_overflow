@@ -1,10 +1,16 @@
 
-<!-- <h1>This is a show page for a single question</h1>
- -->
  <div class='question-info'>
   <h3><%= @question.title %></h3>
   <h6>Author:  <%= @question.author.user_name %></h6>
   <p><%= @question.text %></p>
+</div>
+
+<div class='question-comments'>
+<%if logged_in? %>
+  <form action='/questions/<%= @question.id %>/comments/new'>
+    <input type='submit' value='Add Comment'>
+  </form>
+<% end %>
 </div>
 
 <%= erb :"comments/_show_question_comments" %>
@@ -14,10 +20,13 @@
   <% if @answers %>
   <ul>
     <% @answers.each do |answer| %>
+
     <%= erb :'answers/show', locals: { answer: answer} %>
-    <form action='/answers/<%= answer.id %>/comments/new'>
-      <input type='submit' value='Add Comment'>
-    </form>
+    <% if logged_in? %>
+      <form action='/answers/<%= answer.id %>/comments/new'>
+        <input type='submit' value='Add Comment'>
+      </form>
+    <% end %>
     <br>
     <% end %>
   </ul>
@@ -30,9 +39,11 @@
   <p><%=error%></p>
   <%end%>
   <%end%>
+  <% if logged_in? %>
   <h5>
     <%= erb :'answers/new'%>
   </h5>
+  <% end %>
 </div>
 
 <% if current_user %>

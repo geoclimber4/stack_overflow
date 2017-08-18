@@ -7,18 +7,21 @@
     <p>This is the best answer</p>
     <% end %>
 </li>
+
 </div>
 
-<form action="/questions/<%=answer.question.id%>" method="POST">
-  <input name="_method" type="hidden" value="PUT"/>
-  <input name="answer_id" type="hidden" value=<%=answer.id%>>
-  <input type="submit" value="Best Answer"/>
-</form>
+<%if current_user.try(:id) == answer.author_id  %>
+  <form action="/questions/<%=answer.question.id%>" method="POST">
+    <input name="_method" type="hidden" value="PUT"/>
+    <input name="answer_id" type="hidden" value=<%=answer.id%>>
+    <input type="submit" value="Best Answer"/>
+  </form>
 
-<form action="/questions/<%=answer.question.id%>" method="POST">
-  <input name="_method" type="hidden" value="DELETE"/>
-  <input type="submit" value="Delete Answer"/>
-</form>
+  <form action="/questions/<%=answer.question.id%>" method="POST">
+    <input name="_method" type="hidden" value="DELETE"/>
+    <input type="submit" value="Delete Answer"/>
+  </form>
+<% end %>
 
 <li><%= erb :"comments/_show_answer_comments", locals: {answer: answer } %> </li>
 
