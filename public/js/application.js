@@ -18,14 +18,14 @@ var createAnswer = function(){
     })
     request.done(function(response) {
       $(".all-answers ul").append(response);
+      // below code works, not sure if it's poor form? Javascript method on a Jquery Object
+      $("#add-answer-form")[0].reset();
     });
     request.fail(function(failResponse){
       console.log(failResponse)
       var karlStuff = JSON.parse(failResponse.responseText)
       console.log(karlStuff)
       alert(karlStuff.errors)
-// errors partial should iterate through the parsed JSON thingamabobber
-// refactor to add to errors partial
     });
   });
 };
