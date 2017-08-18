@@ -1,17 +1,15 @@
-<h1>Comments</h1>
-<p>its a partial..</p>
-
 
 <ul>
   <% answer.comments.each do |comment| %>
 
-  <li> <%= comment.text %>
+  <li>Comment: <%= comment.text %>
     <br>
     <%= comment.author.user_name %> </li>
+    <%if current_user.try(:id) == comment.author_id  %>
     <form action='/answers/<%= answer.id %>/comments/<%= comment.id %>/delete' method='POST'>
       <input type='hidden' name='_method' value='DELETE'>
       <input type='submit' value='Delete Comment'>
     </form>
-
+    <%end%>
     <% end %>
   </ul>

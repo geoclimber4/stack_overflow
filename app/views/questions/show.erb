@@ -4,7 +4,11 @@
 <h6>Author:  <%= @question.author.user_name %></h6>
 <p><%= @question.text %></p>
 
-
+<%if logged_in? %>
+  <form action='/questions/<%= @question.id %>/comments/new'>
+    <input type='submit' value='Add Comment'>
+  </form>
+<% end %>
 <%= erb :"comments/_show_question_comments" %>
 
 
@@ -13,12 +17,11 @@
   <ul>
 
     <% @answers.each do |answer| %>
+    <%= erb :'answers/show', locals: { answer: answer } %>
 
-    <%= erb :'answers/show', locals: { answer: answer} %>
-
-    <form action='/answers/<%= answer.id %>/comments/new'>
+    <!-- <form action='/answers/<%= answer.id %>/comments/new'>
       <input type='submit' value='Add Comment'>
-    </form>
+    </form> -->
     <br>
 
     <% end %>
@@ -32,9 +35,11 @@
   <p><%=error%></p>
   <%end%>
   <%end%>
+  <% if logged_in? %>
   <h5>
     <%= erb :'answers/new'%>
   </h5>
+  <% end %>
 </div>
 
 <% if current_user %>
