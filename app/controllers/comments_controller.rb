@@ -35,3 +35,18 @@ post '/answers/:answer_id/comments' do
     erb :"comments/new_answer"
   end
 end
+
+delete '/answers/:answer_id/comments/:id/delete' do
+  @comment = Comment.find(params[:id])
+  @answer = Answer.find(params[:answer_id])
+  @comment.destroy
+  redirect "/questions/#{@answer.question_id}"
+end
+
+delete '/questions/:question_id/comments/:id/delete' do
+  @comment = Comment.find(params[:id])
+  # @answer = Answer.find(params[:answer_id])
+  @comment.destroy
+  redirect "/questions/#{params[:question_id]}"
+end
+
