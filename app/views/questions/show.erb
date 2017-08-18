@@ -22,9 +22,11 @@
     <% @answers.each do |answer| %>
 
     <%= erb :'answers/show', locals: { answer: answer} %>
-    <form action='/answers/<%= answer.id %>/comments/new'>
-      <input type='submit' value='Add Comment'>
-    </form> -->
+    <% if logged_in? %>
+      <form action='/answers/<%= answer.id %>/comments/new'>
+        <input type='submit' value='Add Comment'>
+      </form>
+    <% end %>
     <br>
     <% end %>
   </ul>
