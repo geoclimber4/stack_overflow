@@ -5,10 +5,6 @@ get '/questions/:question_id/answers/new' do
   erb :'answers/new'
 end
 
-get '/questions/:question_id/answers' do
-
-end
-
 post '/questions/:question_id/answers' do
 
   @question = Question.find(params[:question_id])
@@ -39,13 +35,14 @@ post '/questions/:question_id/answers' do
   end
 end
 
+
+
 delete '/questions/:question_id/answers/:answer_id' do
 
   @question = Question.find(params[:question_id])
   @answer = @question.answers.find(params[:answer_id])
-
   @answer.destroy
 
-  redirect '/questions/#{@question.id}/answers'
+  redirect "/questions/#{@question.id}"
 
 end

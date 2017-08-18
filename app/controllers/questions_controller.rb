@@ -72,8 +72,11 @@ end
 
 put '/questions/:id' do
   @question = Question.find(params[:id])
+  p params
   if @question.author_id == current_user.id
-    @question.assign_attributes(params[:question])
+    # @question.assign_attributes(params[:question])
+    @question.best_answer_id = params[:answer_id]
+
     if @question.save
       redirect '/questions'
     else

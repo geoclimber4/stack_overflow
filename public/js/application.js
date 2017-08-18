@@ -20,6 +20,7 @@ var createAnswer = function(){
     })
     request.done(function(response) {
       $(".all-answers ul").append(response);
+      console.log(response)
       // below code works, not sure if it's poor form? Javascript method on a Jquery Object
       $("#add-answer-form")[0].reset();
     });
