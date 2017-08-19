@@ -2,6 +2,9 @@ $(document).ready(function() {
   createAnswer();
   newQuestion();
   postQuestion();
+  newQuestionComment();
+  postQuestionComment();
+  deleteQuestionComment();
 });
 
 var createAnswer = function(){
@@ -56,7 +59,6 @@ var newQuestion = function(){
 var postQuestion = function(){
   $('.container').on('submit', '#question-new', function(e){
     e.preventDefault();
-    console.log('jimmy')
 
     var formTarget = $(this);
     var url = formTarget.attr('action');
@@ -69,7 +71,6 @@ var postQuestion = function(){
       data: data
   })
     request.done(function(response){
-      console.log(response)
       $('.question-list').append(response)
       $(formTarget)[0].reset()
       $(formTarget).hide();
@@ -78,3 +79,70 @@ var postQuestion = function(){
     })
   })
 }
+
+var newQuestionComment = function(){
+  $('#q-comment').on('submit', function(event){
+    event.preventDefault();
+    
+    var $form = $(this);
+    var url = $form.attr('action');
+    var method = $form.attr('method');
+    
+    var request = $.ajax({
+      url: url,
+      method: method
+    })
+    request.done(function(response){
+      $form.before(response);
+      $form.hide();
+    })
+
+  })
+}
+
+var postQuestionComment = function(){
+  $('.question-comment-new').on('submit', '#post-q-comment', function(event){
+    event.preventDefault();
+    
+    var $form = $(this)
+    var url = $form.attr('action');
+    var method = $form.attr('method');
+    var data = $form.serialize();
+  
+    var request = $.ajax({
+      url: url,
+      method: method,
+      data: data
+    })
+    request.done(function(response){
+    $('.question-comments').children('ul').append(response);
+    $form[0].reset();
+    $form.hide();
+    $('#q-comment').show();
+    });
+    request.fail(function(failResponse){
+      alert(failResponse.responseText)
+    });
+
+  })
+};
+
+var deleteQuestionComment = function(){
+  $('.question-comments').on('submit', '.delete-comment', function(event){
+    event.preventDefault();
+    
+    var $deleteForm = $(this);
+    var url = $deleteForm.attr('action');
+    
+    var request = $.ajax({
+      url: url,
+      method: 'DELETE'
+    })
+    request.done(function(response){
+    $deleteForm.prev().remove();
+    $deleteForm.remove();
+    })
+
+  })
+}
+

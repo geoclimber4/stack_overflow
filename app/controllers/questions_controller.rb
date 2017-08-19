@@ -24,7 +24,6 @@ post '/questions' do
   # update current user method updon user merge
   @question.author_id = current_user.id
   if request.xhr?
-    "henry"
     if @question.save
       erb :"questions/_new_idk", layout: false, locals: {question: @question}
     end
