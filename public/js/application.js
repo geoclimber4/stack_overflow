@@ -3,6 +3,7 @@ $(document).ready(function() {
   newQuestion();
   postQuestion();
   newQuestionComment();
+  postQuestionComment();
 });
 
 var createAnswer = function(){
@@ -79,21 +80,49 @@ var postQuestion = function(){
 }
 
 var newQuestionComment = function(){
-  $('.question-comments').on('submit', 'form', function(event){
+  $('#q-comment').on('submit', function(event){
     event.preventDefault();
     
-    var $form = $(this)
-    var url = $form.attr('action')
-    var method = $form.attr('method')
+    var $form = $(this);
+    var url = $form.attr('action');
+    var method = $form.attr('method');
     
     var request = $.ajax({
       url: url,
       method: method
     })
     request.done(function(response){
-      $form.before(response)
-      $form.hide()
+      $form.before(response);
+      $form.hide();
     })
 
   })
 }
+
+var postQuestionComment = function(){
+  $('.question-comment-new').on('submit', '#post-q-comment', function(event){
+    event.preventDefault();
+    
+    var $form = $(this)
+    var url = $form.attr('action');
+    var method = $form.attr('method');
+    var data = $form.serialize();
+  
+    var request = $.ajax({
+      url: url,
+      method: method,
+      data: data
+    })
+    request.done(function(response){
+    $('.question-comments').children('ul').append(response);
+    $form[0].reset();
+    $form.hide();
+    $('#q-comment').show();
+    });
+    request.fail(function(failResponse){
+      alert(failResponse.responseText)
+    });
+
+  })
+}
+

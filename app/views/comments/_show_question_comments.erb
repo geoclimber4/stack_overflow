@@ -3,11 +3,10 @@
 
 <ul>
   <% @question.comments.each do |comment| %>
-
+  <br>
   <li> <%= comment.text %>
     <br>
-    <hr>
-    <%= comment.author.user_name %> </li>
+    author:<%= comment.author.user_name %> </li>
     <%if current_user.try(:id) == comment.author_id  %>
       <form action='/questions/<%= @question.id %>/comments/<%= comment.id %>/delete' method='POST'>
         <input type='hidden' name='_method' value='DELETE'>
