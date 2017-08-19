@@ -63,6 +63,10 @@ delete '/questions/:question_id/comments/:id/delete' do
   @comment = Comment.find(params[:id])
   # @answer = Answer.find(params[:answer_id])
   @comment.destroy
-  redirect "/questions/#{params[:question_id]}"
+  if request.xhr?
+    status 200
+  else
+    redirect "/questions/#{params[:question_id]}"
+  end
 end
 

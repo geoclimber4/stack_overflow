@@ -4,6 +4,7 @@ $(document).ready(function() {
   postQuestion();
   newQuestionComment();
   postQuestionComment();
+  deleteQuestionComment();
 });
 
 var createAnswer = function(){
@@ -122,6 +123,25 @@ var postQuestionComment = function(){
     request.fail(function(failResponse){
       alert(failResponse.responseText)
     });
+
+  })
+};
+
+var deleteQuestionComment = function(){
+  $('.question-comments').on('submit', '.delete-comment', function(event){
+    event.preventDefault();
+    
+    var $deleteForm = $(this);
+    var url = $deleteForm.attr('action');
+    
+    var request = $.ajax({
+      url: url,
+      method: 'DELETE'
+    })
+    request.done(function(response){
+    $deleteForm.prev().remove();
+    $deleteForm.remove();
+    })
 
   })
 }
