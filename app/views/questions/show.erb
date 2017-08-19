@@ -7,7 +7,7 @@
 
 <div class='question-comments'>
 <%if logged_in? %>
-  <form action='/questions/<%= @question.id %>/comments/new'>
+  <form action='/questions/<%= @question.id %>/comments/new' method="GET">
     <input type='submit' value='Add Comment'>
   </form>
 <% end %>

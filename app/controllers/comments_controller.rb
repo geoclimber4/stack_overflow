@@ -2,7 +2,12 @@
 # to get to a form for comments on question
 get '/questions/:question_id/comments/new' do
   @question = Question.find(params[:question_id])
+  
+  if request.xhr?
+    erb :"comments/_new_q_comment", layout: false
+  else
   erb :"comments/new_question"
+  end
 end
 
 post '/questions/:question_id/comments' do

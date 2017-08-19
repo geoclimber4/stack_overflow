@@ -2,6 +2,7 @@ $(document).ready(function() {
   createAnswer();
   newQuestion();
   postQuestion();
+  newQuestionComment();
 });
 
 var createAnswer = function(){
@@ -56,7 +57,6 @@ var newQuestion = function(){
 var postQuestion = function(){
   $('.container').on('submit', '#question-new', function(e){
     e.preventDefault();
-    console.log('jimmy')
 
     var formTarget = $(this);
     var url = formTarget.attr('action');
@@ -69,12 +69,31 @@ var postQuestion = function(){
       data: data
   })
     request.done(function(response){
-      console.log(response)
       $('.question-list').append(response)
       $(formTarget)[0].reset()
       $(formTarget).hide();
       $('#new-question-form').show();
 
     })
+  })
+}
+
+var newQuestionComment = function(){
+  $('.question-comments').on('submit', 'form', function(event){
+    event.preventDefault();
+    
+    var $form = $(this)
+    var url = $form.attr('action')
+    var method = $form.attr('method')
+    
+    var request = $.ajax({
+      url: url,
+      method: method
+    })
+    request.done(function(response){
+      $form.before(response)
+      $form.hide()
+    })
+
   })
 }
