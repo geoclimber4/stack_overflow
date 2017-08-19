@@ -1,0 +1,10 @@
+<br>
+<li> <%= comment.text %>
+	<br>
+	author:<%= comment.author.user_name %> </li>
+	<%if current_user.try(:id) == comment.author_id  %>
+	<form class='delete-comment' action='/questions/<%= @question.id %>/comments/<%= comment.id %>/delete' method='POST'>
+		<input type='hidden' name='_method' value='DELETE'>
+		<input type='submit' value='Delete Comment'>
+	</form>
+	<% end %>
