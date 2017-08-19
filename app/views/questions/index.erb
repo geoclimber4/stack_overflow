@@ -2,7 +2,14 @@
 <div class="container">
 <ul class='question-list'>
 <% @questions.each do |question| %>
-  <li> <a href="/questions/<%=question.id%>"> <%=question.title %> </a> <br>
+<li>
+  <form method='post' action="/questions/<%=question.id%>/votes" class="upvote-form">
+    <button type="submit" name="vote" value="1" class="fa fa-sort-asc vote-button upvote-button"></button>
+  </form>
+  <form method='post' action="/questions/<%=question.id%>/votes" class="downvote-form">
+    <button type="submit" name="vote" value="-1" class="fa fa-sort-desc vote-button upvote-button"></button>
+  </form>
+    <%= question.vote_sum %><a href="/questions/<%=question.id%>"> <%=question.title %></a><br>
     <%=question.author.user_name%>
   </li>
 <% end %>

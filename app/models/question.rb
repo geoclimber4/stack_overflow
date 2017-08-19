@@ -7,4 +7,8 @@ class Question < ActiveRecord::Base
   has_many :votes, as: :votable
   has_many :comments, as: :commentable
 
+  def vote_sum
+    self.votes.sum(:value)
+  end
+
 end
