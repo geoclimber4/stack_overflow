@@ -52,8 +52,9 @@ post '/answers/:answer_id/comments' do
     if @comment.save
       status 200
       erb :'comments/_add_answer_comment', layout: false, locals: {comment: @comment}
-      else
+    else
       status 422
+      "cant be blank"
     end
   else
     if @comment.save

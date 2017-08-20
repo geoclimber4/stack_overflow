@@ -174,6 +174,7 @@ var postAnswerComment = function(){
     var url = $postForm.attr('action');
     var method = $postForm.attr('method');
     var data = $postForm.serialize();
+    console.log(data);
 
     var request = $.ajax({
       url: url,
@@ -182,9 +183,12 @@ var postAnswerComment = function(){
     })
     request.done(function(response){
       console.log(response);
+    });
+    request.fail(function(failResponse){
+      alert(failResponse.responseText)
     })
-  })
-}
+  });
+};
 
 var deleteAnswerComment = function(){
   $('.answer-comments').on('submit', '.delete-comment', function(event){
