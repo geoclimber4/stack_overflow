@@ -6,10 +6,9 @@
     <% answer.comments.each do |comment| %>
       <li>Comment: <%= comment.text %>
         <br>
-        <hr>
-        <%= comment.author.user_name %> </li>
+        <%= comment.author.user_name %> </li> <br>
         <%if current_user.try(:id) == comment.author_id  %>
-        <form action='/answers/<%= answer.id %>/comments/<%= comment.id %>/delete' method='POST'>
+        <form class='delete-comment' action='/answers/<%= answer.id %>/comments/<%= comment.id %>/delete' method='POST'>
           <input type='hidden' name='_method' value='DELETE'>
           <input type='submit' value='Delete Comment'>
         </form>
