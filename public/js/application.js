@@ -5,6 +5,9 @@ $(document).ready(function() {
   newQuestionComment();
   postQuestionComment();
   deleteQuestionComment();
+  newAnswerComment();
+  postAnswerComment();
+  deleteAnswerComment();
 });
 
 var createAnswer = function(){
@@ -96,9 +99,8 @@ var newQuestionComment = function(){
       $form.before(response);
       $form.hide();
     })
-
   })
-}
+};
 
 var postQuestionComment = function(){
   $('.question-comment-new').on('submit', '#post-q-comment', function(event){
@@ -144,5 +146,62 @@ var deleteQuestionComment = function(){
     })
 
   })
+};
+
+var newAnswerComment = function(){
+  $('.all-answers').on('submit', '#add-answer-comment', function(event){
+    event.preventDefault();
+
+    var $addForm = $(this)
+    var url = $addForm.attr('action')
+
+    var request = $.ajax({
+      url: url,
+      method: 'GET'
+    })
+    request.done(function(response){
+      $addForm.before(response);
+      $addForm.hide();
+    })
+  })
+};
+
+var postAnswerComment = function(){
+  $('.all-answers').on('submit', '#post-answer-comment', function(event){
+    event.preventDefault();
+    
+    var $postForm = $(this)
+    var url = $postForm.attr('action');
+    var method = $postForm.attr('method');
+    var data = $postForm.serialize();
+
+    var request = $.ajax({
+      url: url,
+      method: method,
+      data: data
+    })
+    request.done(function(response){
+      console.log(response);
+    })
+  })
 }
+
+var deleteAnswerComment = function(){
+  $('.answer-comments').on('submit', '.delete-comment', function(event){
+    event.preventDefault();
+    
+    var $deleteForm = $(this);
+    var url = $deleteForm.attr('action');
+    
+    var request = $.ajax({
+      url: url,
+      method: 'DELETE'
+    })
+    request.done(function(response){
+    $deleteForm.prev().prev().remove();
+    $deleteForm.remove();
+    })
+
+  })
+};
 

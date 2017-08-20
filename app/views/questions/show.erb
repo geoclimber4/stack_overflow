@@ -19,12 +19,11 @@
 <div class="all-answers">
   <% if @answers %>
   <ul>
-    <hr>
     <% @answers.each do |answer| %>
 
     <%= erb :'answers/show', locals: { answer: answer} %>
     <% if logged_in? %>
-      <form action='/answers/<%= answer.id %>/comments/new'>
+      <form id='add-answer-comment' action='/answers/<%= answer.id %>/comments/new'>
         <input type='submit' value='Add Comment'>
       </form>
     <% end %>
