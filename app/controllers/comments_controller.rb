@@ -2,7 +2,7 @@
 # to get to a form for comments on question
 get '/questions/:question_id/comments/new' do
   @question = Question.find(params[:question_id])
-  
+
   if request.xhr?
     erb :"comments/_new_q_comment", layout: false
   else
@@ -14,10 +14,10 @@ post '/questions/:question_id/comments' do
   @question = Question.find(params[:question_id])
   @comment = @question.comments.new(author_id: current_user.id, text: params[:text])
   if request.xhr?
-    if @comment.save 
+    if @comment.save
       status 200
       erb :"comments/_insert_q_comment", layout: false, locals: {comment: @comment}
-    
+
     else
       status 422
       "Comments can't be blank"
@@ -48,10 +48,12 @@ post '/answers/:answer_id/comments' do
   # @question = Question.find(params[:question_id])
   @answer = Answer.find(params[:answer_id])
   @comment = @answer.comments.new(author_id: current_user.id, text: params[:text])
+  p @answer
+  p @comment
   if request.xhr?
     if @comment.save
       status 200
-      erb :'comments/_add_answer_comment', layout: false, locals: {comment: @comment}
+      erb :'comments/_add_answer_comment', layout: false, locals: {comment: @comment, answer: @answer}
     else
       status 422
       "cant be blank"
@@ -74,7 +76,7 @@ delete '/answers/:answer_id/comments/:id/delete' do
     status 200
   else
     redirect "/questions/#{@answer.question_id}"
-  end 
+  end
 end
 
 delete '/questions/:question_id/comments/:id/delete' do
